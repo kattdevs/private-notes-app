@@ -29,8 +29,9 @@ router.post('/signup', async (req, res) => {
             email,
             password,
             email_conform: true, // Auto-confirm email for simplicity
-        });(
+        });
 
+    
         if (error) throw error;
 
         res.status(201).json({ message:'Account created successfully! Please log in.'});
@@ -42,7 +43,9 @@ router.post('/signup', async (req, res) => {
 // POST /api/auth/login
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
             return res.status(400).json({ error: 'Email and password are required.'});
         }
 
