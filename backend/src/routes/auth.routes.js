@@ -8,7 +8,7 @@ const cookieOptions = {
     httpOnly: true,  //JavaScript cannot read this cookie (prevents XSS attacks)
     secure: process.env.NODE_ENV === 'production', //HTTPS only in production
     sameSite: 'strict', //Prevents CSRF attacks
-    maxAge: 7 * 24 * 60 * 1000, // 7 days in millieseconds 
+    maxAge: 7 * 24 * 60 * 60 *1000, // 7 days in millieseconds 
 };
 
 //POST /api/auth/signup
@@ -28,7 +28,7 @@ router.post('/signup', async (req, res) => {
         const { data, error } = await supabase.auth.admin.createUser ({
             email,
             password,
-            email_conform: true, // Auto-confirm email for simplicity
+            email_confirm: true, // Auto-confirm email for simplicity
         });
 
     
