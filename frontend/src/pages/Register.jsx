@@ -14,7 +14,8 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); setSuccess('');
+    setError('');
+    setSuccess('');
     if (password !== confirm) {
       return setError('Passwords do not match.');
     }
@@ -47,8 +48,16 @@ const Register = () => {
             <h1 className="text-2xl font-bold text-white mb-1">Create account</h1>
             <p className="text-white/50 text-sm">Start your private notes journey</p>
           </div>
-          {error && <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm">{error}</div>}
-          {success && <div className="mb-4 p-3 rounded-xl bg-green-500/10 border border-green-500/20 text-green-300 text-sm">{success}</div>}
+          {error && (
+            <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm">
+              {error}
+            </div>
+          )}
+          {success && (
+            <div className="mb-4 p-3 rounded-xl bg-green-500/10 border border-green-500/20 text-green-300 text-sm">
+              {success}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-white/70 text-sm mb-1.5">Email</label>
@@ -73,7 +82,7 @@ const Register = () => {
             </div>
             <button type="submit" disabled={loading}
               className="w-full py-3 rounded-xl bg-white/15 hover:bg-white/25 text-white font-medium
-              border border-white/20 transition-all duration-200 hover:scale-[1.02] disabled:opacity-50 mt-2">
+                border border-white/20 transition-all duration-200 hover:scale-[1.02] disabled:opacity-50 mt-2">
               {loading ? 'Creating account...' : 'Create Account'}
             </button>
           </form>
