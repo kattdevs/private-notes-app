@@ -51,7 +51,7 @@ const Login = () => {
                                 </div>
                             )}
 
-                            <form onSubmit={handleSunmit} className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
               <label className="block text-white/70 text-sm mb-1.5">Email</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)}
