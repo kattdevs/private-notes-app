@@ -8,15 +8,15 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setLoading(true);
         try{
-            await Login(email, password);
-            Navigate('/dashbaord');
+            await login(email, password);
+            navigate('/dashboard');
         } catch (err) {
             setError(err.response?.data?.error || 'Login failed. Please try again.');
         } finally {
