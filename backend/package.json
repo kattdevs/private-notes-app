@@ -1,24 +1,15 @@
 {
-  "name": "private-notes-app",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kattdevs/private-notes-app.git"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/kattdevs/private-notes-app/issues"
-  },
-  "homepage": "https://github.com/kattdevs/private-notes-app#readme",
   "dependencies": {
     "@supabase/supabase-js": "^2.104.1",
     "bcryptjs": "^3.0.3",
