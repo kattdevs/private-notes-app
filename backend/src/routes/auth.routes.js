@@ -7,7 +7,7 @@ const { authenticateToken } = require('../middleware/auth');
 const cookieOptions = {
     httpOnly: true,  //JavaScript cannot read this cookie (prevents XSS attacks)
     secure: process.env.NODE_ENV === 'production', //HTTPS only in production
-    sameSite: 'strict', //Prevents CSRF attacks
+    sameSite: 'none', 
     maxAge: 7 * 24 * 60 * 60 *1000, // 7 days in millieseconds 
 };
 
