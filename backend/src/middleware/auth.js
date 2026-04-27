@@ -9,9 +9,8 @@ const authenticateToken = (req, res, next) => {
   }
 
   try {
-    // Supabase JWT secret is base64 encoded — decode it first
     const secret = Buffer.from(process.env.SUPABASE_JWT_SECRET, 'base64');
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, secret, { algorithms: ['HS256'] });
     req.user = decoded;
     next();
   } catch (error) {
