@@ -1,7 +1,12 @@
-const jwt = require('jsonwebtoken');
+const { createClient } = require('@supabase/supabase-js');
 require('dotenv').config();
 
-const authenticateToken = (req, res, next) => {
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
+
+const authenticateToken = async (req, res, next) => {
   const token = req.cookies?.access_token;
 
   if (!token) {
@@ -9,12 +14,18 @@ const authenticateToken = (req, res, next) => {
   }
 
   try {
-    const secret = Buffer.from(process.env.SUPABASE_JWT_SECRET, 'base64');
-    const decoded = jwt.verify(token, secret, { algorithms: ['HS256'] });
-    req.user = decoded;
+    // Use Supabase to verify the token instead of manual JWT verification
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return res.status(403).json({ error: 'Invalid or expired token. Please log in again.' });
+    }
+
+    // Attach user to request — use same format as before
+    req.user = { sub: user.id, email: user.email };
     next();
   } catch (error) {
-    console.error('JWT Error:', error.message);
+    console.error('Auth Error:', error.message);
     return res.status(403).json({ error: 'Invalid or expired token. Please log in again.' });
   }
 };
