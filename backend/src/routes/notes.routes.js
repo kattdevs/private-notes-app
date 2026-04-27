@@ -68,4 +68,31 @@ router.get('/', authenticateToken, async (req, res) => {
         }
     });
 
-    module.exports = router;
+    // PUT /api/notes/:id - Update an existing note
+router.put('/:id', authenticateToken, async (req, res) => {
+    try {
+        const userId = req.user.sub;
+        const { id } = req.params;
+        const { title, content } = req.body;
+
+        if (!title) {
+            return res.status(400).json({ error: 'Title is required.' });
+        }
+
+        const { data, error } = await supabase
+            .from('notes')
+            .update({ title, content })
+            .eq('id', id)
+            .eq('user_id', userId)
+            .select()
+            .single();
+
+        if (error) throw error;
+        if (!data) return res.status(404).json({ error: 'Note not found.' });
+
+        res.status(200).json({ note: data });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+module.exports = router;
